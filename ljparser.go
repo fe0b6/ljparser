@@ -44,11 +44,17 @@ func GetComments(lnk string) (pi PostInfo, err error) {
 		return
 	}
 
+	var comInt, dateInt int64
+
 	com := commentReg.FindStringSubmatch(string(content))
-	comInt, _ := strconv.ParseInt(com[1], 10, 64)
+	if len(com) >= 2 {
+		comInt, _ = strconv.ParseInt(com[1], 10, 64)
+	}
 
 	date := dateReg.FindStringSubmatch(string(content))
-	dateInt, _ := strconv.ParseInt(date[1], 10, 64)
+	if len(date) >= 2 {
+		dateInt, _ = strconv.ParseInt(date[1], 10, 64)
+	}
 
 	pi = PostInfo{
 		Comments:  int(comInt),
